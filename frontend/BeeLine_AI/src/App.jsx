@@ -216,7 +216,7 @@ function App() {
           </button>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-900/40">
-              <span className="text-xl">🐝BeeLine AI</span>
+              <span className="text-xl">🐝</span>
             </div>
             <h1 className="text-lg font-bold tracking-tight hidden xs:block">
               BeeLine <span className="text-blue-500">AI</span>
