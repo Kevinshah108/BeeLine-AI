@@ -20,7 +20,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Detect mobile for dynamic adjustments
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   /* =========================
       FETCH HISTORY
@@ -72,7 +72,7 @@ function App() {
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
-    []
+    [],
   );
 
   /* =========================
@@ -153,14 +153,18 @@ function App() {
 
     return {
       ...node,
-      dragHandle: '.drag-handle',
+      dragHandle: ".drag-handle",
       style: { width: "auto", maxWidth: 280 },
       data: {
         label: (
           <div className="min-w-[200px] max-w-[260px] p-3 rounded-xl bg-white text-black shadow-2xl border border-gray-200">
             <div className="drag-handle cursor-grab active:cursor-grabbing mb-2 pb-1 border-b border-gray-100 flex justify-between items-center">
               <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
-                {isInput ? "Input Source" : isOutput ? "AI Output" : "Logic Node"}
+                {isInput
+                  ? "Input Source"
+                  : isOutput
+                    ? "AI Output"
+                    : "Logic Node"}
               </span>
               <div className="flex gap-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-gray-200" />
@@ -171,9 +175,11 @@ function App() {
             {isInput && (
               <textarea
                 className="w-full min-h-[80px] p-2 text-sm border border-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none bg-gray-50"
-                placeholder="Ask Gemini something..."
+                placeholder="Ask BeeLine something..."
                 value={promptMap[node.id] || ""}
-                onChange={(e) => setPromptMap({ ...promptMap, [node.id]: e.target.value })}
+                onChange={(e) =>
+                  setPromptMap({ ...promptMap, [node.id]: e.target.value })
+                }
               />
             )}
 
@@ -204,11 +210,10 @@ function App() {
 
   return (
     <div className="h-screen w-full flex flex-col bg-[#0b0f1a] text-slate-200 overflow-hidden font-sans">
-      
       {/* HEADER */}
       <header className="z-50 px-4 py-3 bg-[#161b2c]/80 backdrop-blur-md border-b border-white/5 flex justify-between items-center shadow-2xl">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="md:hidden p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-all"
           >
@@ -225,14 +230,20 @@ function App() {
         </div>
 
         <div className="flex gap-2">
-          <button onClick={addNode} className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold transition-all">
+          <button
+            onClick={addNode}
+            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold transition-all"
+          >
             + Node
           </button>
-          <button onClick={deleteNode} className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-red-400 transition-all">
+          <button
+            onClick={deleteNode}
+            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-red-400 transition-all"
+          >
             Delete
           </button>
-          <button 
-            onClick={runFlow} 
+          <button
+            onClick={runFlow}
             disabled={!!loadingNode}
             className="px-5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:bg-gray-600 text-xs font-bold shadow-lg shadow-blue-700/20 transition-all"
           >
@@ -243,17 +254,23 @@ function App() {
 
       <main className="flex flex-1 relative overflow-hidden">
         {/* RESPONSIVE SIDEBAR */}
-        <aside className={`
+        <aside
+          className={`
           fixed inset-y-0 left-0 z-40 w-72 bg-[#111625] border-r border-white/5 
           transform transition-transform duration-300 ease-in-out
           md:relative md:translate-x-0
           ${isSidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"}
-        `}>
+        `}
+        >
           <div className="p-5 h-full flex flex-col">
-            <h2 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Prompt History</h2>
+            <h2 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+              Prompt History
+            </h2>
             <div className="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar">
               {history.length === 0 ? (
-                <div className="text-center py-10 opacity-30 text-sm">Empty History</div>
+                <div className="text-center py-10 opacity-30 text-sm">
+                  Empty History
+                </div>
               ) : (
                 history.map((item) => (
                   <div
@@ -265,10 +282,17 @@ function App() {
                       if (isMobile) setIsSidebarOpen(false);
                     }}
                   >
-                    <p className="text-xs font-bold text-blue-400 truncate mb-1">{item.prompt}</p>
-                    <p className="text-[11px] text-gray-400 line-clamp-2 leading-tight">{item.response}</p>
+                    <p className="text-xs font-bold text-blue-400 truncate mb-1">
+                      {item.prompt}
+                    </p>
+                    <p className="text-[11px] text-gray-400 line-clamp-2 leading-tight">
+                      {item.response}
+                    </p>
                     <button
-                      onClick={(e) => { e.stopPropagation(); deleteHistory(item._id); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteHistory(item._id);
+                      }}
                       className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 p-1 rounded bg-red-900/50 text-red-200 hover:bg-red-800 transition-all"
                     >
                       🗑
@@ -283,9 +307,12 @@ function App() {
         {/* FLOW WORKSPACE */}
         <section className="flex-1 relative bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px]">
           {isSidebarOpen && isMobile && (
-            <div className="absolute inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden" onClick={() => setIsSidebarOpen(false)} />
+            <div
+              className="absolute inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden"
+              onClick={() => setIsSidebarOpen(false)}
+            />
           )}
-          
+
           <ReactFlow
             nodes={updatedNodes}
             edges={edges}
@@ -304,14 +331,18 @@ function App() {
         </section>
       </main>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #334155; }
         .react-flow__handle { width: 8px; height: 8px; background: #3b82f6; border: 2px solid #0b0f1a; }
         .react-flow__node { border-radius: 12px; }
-      `}} />
+      `,
+        }}
+      />
     </div>
   );
 }
