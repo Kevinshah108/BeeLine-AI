@@ -1,17 +1,7 @@
-# Node modules
+# Root gitignore
+node_modules/
 backend/node_modules/
-frontend/node_modules/
 frontend/BeeLine_AI/node_modules/
-
-# Env files
+.env
 backend/.env
-frontend/.env
 frontend/BeeLine_AI/.env
-
-# Build folders
-frontend/BeeLine_AI/build/
-frontend/build/
-
-# OS files
-.DS_Store
-Thumbs.db
