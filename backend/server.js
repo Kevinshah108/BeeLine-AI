@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "https://bee-line-ai.vercel.app/" 
+  origin: "https://bee-line-ai.vercel.app" 
 }));
 app.use(express.json());
 

@@ -23,7 +23,7 @@ function App() {
   ========================= */
   const fetchHistory = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/history");
+      const res = await axios.get("https://beeline-ai-backend.onrender.com/api/history");
       setHistory(res.data);
     } catch (err) {
       console.error("History error:", err);
@@ -112,7 +112,7 @@ function App() {
     setLoadingNode(outputNode.id);
 
     try {
-      const res = await axios.post("http://localhost:8000/api/ask-ai", {
+      const res = await axios.post("https://beeline-ai-backend.onrender.com/api/ask-ai", {
         prompt,
       });
 
@@ -123,7 +123,7 @@ function App() {
       });
 
       // SAVE TO DB
-      await axios.post("http://localhost:8000/api/save", {
+      await axios.post("https://beeline-ai-backend.onrender.com/api/save", {
         prompt,
         response: output,
       });
@@ -142,7 +142,7 @@ function App() {
   ========================= */
   const deleteHistory = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/delete/${id}`);
+      await axios.delete(`https://beeline-ai-backend.onrender.com/api/delete/${id}`);
       fetchHistory();
     } catch (err) {
       console.error(err);
