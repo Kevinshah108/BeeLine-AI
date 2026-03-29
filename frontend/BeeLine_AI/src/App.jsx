@@ -7,6 +7,7 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import axios from "axios";
+import API from "./api";
 import ReactMarkdown from "react-markdown";
 
 let id = 3;
@@ -23,7 +24,7 @@ function App() {
   ========================= */
   const fetchHistory = async () => {
     try {
-      const res = await axios.get("https://beeline-ai-backend.onrender.com/api/history");
+      const res = await API.get("/history");
       setHistory(res.data);
     } catch (err) {
       console.error("History error:", err);
@@ -112,9 +113,7 @@ function App() {
     setLoadingNode(outputNode.id);
 
     try {
-      const res = await axios.post("https://beeline-ai-backend.onrender.com/api/ask-ai", {
-        prompt,
-      });
+      const res = await API.post("/ask-ai", { prompt });
 
       const output = res.data.result;
 
@@ -123,10 +122,10 @@ function App() {
       });
 
       // SAVE TO DB
-      await axios.post("https://beeline-ai-backend.onrender.com/api/save", {
-        prompt,
-        response: output,
-      });
+      await API.post("/save", {
+    prompt,
+    response: output,
+  });
 
       fetchHistory();
 
@@ -142,7 +141,7 @@ function App() {
   ========================= */
   const deleteHistory = async (id) => {
     try {
-      await axios.delete(`https://beeline-ai-backend.onrender.com/api/delete/${id}`);
+      await API.delete(`/delete/${id}`);
       fetchHistory();
     } catch (err) {
       console.error(err);
