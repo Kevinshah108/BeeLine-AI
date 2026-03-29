@@ -112,7 +112,7 @@ function App() {
     setLoadingNode(outputNode.id);
 
     try {
-      const res = await axios.post("https://beeline-ai-backend.onrender.com/api/ask-ai", {
+      const res = await axios.post("https://beeline-ai-backend.onrender.com/api/api/ask-ai", {
         prompt,
       });
 
